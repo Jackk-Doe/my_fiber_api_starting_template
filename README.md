@@ -15,3 +15,9 @@ go get github.com/gofiber/fiber/v2
 go get github.com/joho/godotenv
 ```
 NOTE: .env file must be created.<br>
+
+## Run command
+`go run cmd/api/main.go`
+
+Or debug with CompileDaemon with: <br>
+`CompileDaemon -build="go build -o ./build/api cmd/api/main.go" -command="./build/api"`
