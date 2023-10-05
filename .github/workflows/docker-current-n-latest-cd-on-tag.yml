@@ -1,0 +1,45 @@
+# name: On Git tag - Build and push Docker image of current tag and latest to private Docker Hub
+
+# on:
+#   push :
+#     tags:
+#       - 'v*.*.*'
+
+# jobs:
+#   build-and-push-current-tag-and-latest-docker-image:
+#     name: Build and push Docker image
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Test print tag
+#       run: echo "CURRENT TAG IS -> ${{ github.ref_name }}"
+
+#     - name: Set up Docker Buildx
+#       id: buildx
+#       uses: docker/setup-buildx-action@v2
+
+#     - name: Set date env
+#       run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+
+#     - name: Login to DockerHub
+#       uses: docker/login-action@v2
+#       with:
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+#     - name: Build and push Docker image to Docker Hub
+#       uses: docker/build-push-action@v3
+#       with:
+#         push: true
+#         tags: |
+#           ${{ secrets.DOCKER_USERNAME }}/<YOUR_IMAGE_NAME>:${{ github.ref_name }}
+#           ${{ secrets.DOCKER_USERNAME }}/<YOUR_IMAGE_NAME>:latest
+#         build-args: |
+#           COMMIT_SHA=${{ github.sha }}
+#           BRANCH=${{ github.ref }}
+#           BUILD_DATE=${{ env.DATE }}
+#           API_VERSION=${{ github.ref_name }}
+#         context: .
+#         file: ./Dockerfile
