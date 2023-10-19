@@ -70,6 +70,8 @@ func main() {
 	cors.SetCORSMiddleware(app)
 	requestid.SetRequestIdMiddleware(app)
 
+	validators.Init()
+
 	/// API Routes
 	api := app.Group(os.Getenv("API_PREFIX"))
 

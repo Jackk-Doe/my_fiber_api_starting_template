@@ -14,6 +14,7 @@ A template for Go Fiber API project by Jackk-Doe.<br>
 go mod init <YOUR_GO_MOD_NAME>
 go get github.com/gofiber/fiber/v2
 go get github.com/joho/godotenv
+go get github.com/go-playground/validator/v10
 ```
 NOTE: .env file must be created.<br>
 NOTE: also replace <YOUR_GO_MOD_NAME> with a go module project name in files : `main.go`<br>
