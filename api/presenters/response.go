@@ -16,7 +16,7 @@ func ResponseSuccess(data interface{}) fiber.Map {
 	return fiber.Map{
 		"timestamp": t.Format("2006-01-02-15-04-05"),
 		"status":    SUCCESS,
-		"data":      data,
+		"items":     data,
 		"error":     nil,
 	}
 }

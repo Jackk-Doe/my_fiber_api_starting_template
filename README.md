@@ -41,7 +41,7 @@ localhost:3000/api/v1/test
 SUCCESS Response body
 ```
 {
-    "data": {
+    "items": {
         "something": "something"
     },
     "error": null,
@@ -53,7 +53,7 @@ SUCCESS Response body
 FAIL Response body
 ```
 {
-    "data": null,
+    "items": null,
     "error": "<ERROR_MESSAGE>",
     "status": 0,
     "timestamp": "2023-10-05-14-55-03"
