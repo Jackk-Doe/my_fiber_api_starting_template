@@ -11,7 +11,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	testRouter "<YOUR_GO_MOD_NAME>/api/routes"
-	"go-fiber-unit-testing/api/validators"
+	"<YOUR_GO_MOD_NAME>/api/validators"
 	"<YOUR_GO_MOD_NAME>/config/cors"
 	"<YOUR_GO_MOD_NAME>/config/dotenv"
 	"<YOUR_GO_MOD_NAME>/config/logger"
