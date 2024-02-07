@@ -55,7 +55,7 @@ func main() {
 			err = ctx.Status(code).JSON(fiber.Map{
 				"timestamp": time.Now().Format("2006-01-02-15-04-05"),
 				"status":    0,
-				"data":      nil,
+				"items":      nil,
 				"error":     err.Error(),
 			})
 
