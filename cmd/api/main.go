@@ -67,15 +67,16 @@ func main() {
 	app := fiber.New(myConfig)
 
 	// Set up middleware
-	logger.SetLoggerMiddleware(app)
 	cors.SetCORSMiddleware(app)
 	requestid.SetRequestIdMiddleware(app)
-
+	
+	// Set up other third-party packages
 	validators.Init()
-
+	
 	/// API Routes
 	api := app.Group(os.Getenv("API_PREFIX"))
 
+	/// NOTE: Define Info & Healthz routes before setting up logger middleware, so that they are not logged
 	// API Info path
 	api.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
@@ -86,6 +87,16 @@ func main() {
 			"START_RUN_AT": startRunAt,
 		})
 	})
+
+	// healthz route
+	api.Get("/healthz", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"status": "OK",
+		})
+	})
+	
+	// Set up logger middleware
+	logger.SetLoggerMiddleware(api)
 
 	/// API Routes
 	// TODO: Add your API routes here
