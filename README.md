@@ -6,7 +6,7 @@ A template for Go Fiber API project by Jackk-Doe.<br>
 - Create a folder structures for the API.<br>
 - Create a custom success response JSON.<br>
 - Override custom fail response JSON.<br>
-- Separate Development and Production mode. (DEV & PROD)<br>
+- Separate Development and Production mode. (DEV, UAT & PROD)<br>
 
 
 ## Initialise go mod and install necessary go packages (fiber & dotenv) 
