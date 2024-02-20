@@ -19,14 +19,16 @@ import (
 )
 
 func init() {
-	if os.Getenv("MODE") != "prod" {
-		// In development mode, load .env file
-		log.Println("Running in development (DEV) mode...")
+	// NOTE: MODE has 'dev', 'uat' and 'prod' values
+	mode := os.Getenv("MODE")
+
+	if mode == "dev" {
+		// In dev (development) mode, load .env file
 		dotenv.SetDotenv()
-	} else {
-		// In production mode, load environment variables
-		log.Println("Running in production (PROD) mode...")
 	}
+	
+	// In prod or uat mode, load environment variables from system
+	log.Println("------ Running in '" + mode + "' mode... ------")
 }
 
 func main() {
