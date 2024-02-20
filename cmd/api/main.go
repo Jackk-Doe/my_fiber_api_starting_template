@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	// NOTE: MODE has 'dev', 'uat' and 'prod' values
+	// NOTE: MODE has 'dev', 'uat', 'build', 'test' and 'prod' values
 	mode := os.Getenv("MODE")
 
 	if mode == "dev" {
