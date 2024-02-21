@@ -19,11 +19,11 @@ import (
 )
 
 func init() {
-	// NOTE: MODE has 'dev', 'uat', 'build', 'test' and 'prod' values
+	// NOTE: MODE has 'dev', 'uat', 'build', 'test', 'prod' or '' (empty) values
 	mode := os.Getenv("MODE")
 
-	if mode == "dev" {
-		// In dev (development) mode, load .env file
+	if mode == "" {
+		// Set up environment variables from .env file
 		dotenv.SetDotenv()
 	}
 	
