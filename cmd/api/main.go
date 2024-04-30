@@ -26,7 +26,7 @@ func init() {
 		// Set up environment variables from .env file
 		dotenv.SetDotenv()
 	}
-	
+
 	// In prod or uat mode, load environment variables from system
 	log.Println("------ Running in '" + mode + "' mode... ------")
 }
@@ -57,7 +57,7 @@ func main() {
 			err = ctx.Status(code).JSON(fiber.Map{
 				"timestamp": time.Now().Format("2006-01-02-15-04-05"),
 				"status":    0,
-				"items":      nil,
+				"items":     nil,
 				"error":     err.Error(),
 			})
 
@@ -71,10 +71,10 @@ func main() {
 	// Set up middleware
 	cors.SetCORSMiddleware(app)
 	requestid.SetRequestIdMiddleware(app)
-	
+
 	// Set up other third-party packages
 	validators.Init()
-	
+
 	/// API Routes
 	api := app.Group(os.Getenv("API_PREFIX"))
 
@@ -96,9 +96,9 @@ func main() {
 			"status": "OK",
 		})
 	})
-	
+
 	// Set up logger middleware
-	logger.SetLoggerMiddleware(api)
+	logger.SetLoggerMiddlewareInJSONFormat(api)
 
 	/// API Routes
 	// TODO: Add your API routes here

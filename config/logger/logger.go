@@ -25,7 +25,7 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 			return output.WriteString("")
 		}
 
-		// If request body is in form-data
+		// If request body is in form-data, exclude file, extract only key-value pair datas
 		if contentType := strings.Split(c.Get("Content-Type"), ";")[0]; contentType == "multipart/form-data" {
 			form, err := c.MultipartForm()
 			if err != nil {
@@ -48,35 +48,30 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 }
 
 /*
-Set logger middleware for REST API for JSON data
+Set logger middleware for REST API, accept both request body & form data.
+
+NOTE : display log data in JSON format
 */
-func SetLoggerMiddlewareJSON(app fiber.Router) {
+func SetLoggerMiddlewareInJSONFormat(app *fiber.App) {
 	var myLogger logger.Config
 
-	/// If in production mode, Display only necessary log datas
-	if os.Getenv("MODE") == "prod" {
+	switch os.Getenv("MODE") {
+	case "prod":
 		myLogger = logger.Config{
-			Output: os.Stdout,
-			Format: `[API] ${cyan}${time} | ${yellow}${status}${reset} | ${blue}${method}${reset} | ${yellow}${latency}${reset} ` +
-				`| IP: ${green}${ip}${reset} | PATH: ${magenta}${path}${reset} | QUERY_PARAM: ${queryParams} | LOCALS: ${cyan}${locals:user} ${reset} | REQUEST_ID: ${locals:requestid} ` +
-				`| REQUEST_BODY: ${cyan}- ${reset} | REQUEST_HEADERS: ${cyan}- ${reset} ` +
-				`| RESPONSE_BODY: ${cyan}- ${reset} | ERROR: ${red}${error}` + "\n",
+			Output:     os.Stdout,
+			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": "${customReqBody}", "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
 			TimeFormat: "2006/01/02 - 15:04:05",
 			// TimeZone:   "Asia/Bangkok",
 		}
-	} else /* /// Else (uat or dev), Display all log datas */
-	{
+	default:
 		myLogger = logger.Config{
 			CustomTags: myCustomLoggerTags,
 			Output:     os.Stdout,
-			Format: `[API] ${cyan}${time} | ${yellow}${status}${reset} | ${blue}${method}${reset} | ${yellow}${latency}${reset} ` +
-				`| IP: ${green}${ip}${reset} | PATH: ${magenta}${path}${reset} | QUERY_PARAM: ${queryParams} | LOCALS: ${cyan}${locals:user} ${reset} | REQUEST_ID: ${locals:requestid} ` +
-				`| REQUEST_BODY: ${cyan}${customReqBody} ${reset} | REQUEST_HEADERS: ${cyan}${header:Authorization} ${reset} ` +
-				`| RESPONSE_BODY: ${cyan}${resBody} ${reset} | ERROR: ${red}${error}` + "\n",
+			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": "${customReqBody}", "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
 			TimeFormat: "2006/01/02 - 15:04:05",
 			// TimeZone:   "Asia/Bangkok",
 		}
 	}
 
-	app.Use(logger.New(myLogger))
+	(*app).Use(logger.New(myLogger))
 }
