@@ -1,5 +1,5 @@
 # build executable binary
-FROM golang:1.19.0-alpine as builder
+FROM golang:1.22.2-alpine as builder
 
 ENV CGO_ENABLED 0
 ENV GOOS "linux"
