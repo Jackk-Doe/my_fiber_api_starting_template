@@ -12,12 +12,20 @@ A template for Go Fiber API project by Jackk-Doe.<br>
 ## Initialise go mod and install necessary go packages (fiber & dotenv) 
 ```
 go mod init <YOUR_GO_MOD_NAME>
+```
+
+Install packages :
+```
 go get github.com/gofiber/fiber/v2
 go get github.com/joho/godotenv
 go get github.com/go-playground/validator/v10
 ```
-NOTE: .env file must be created.<br>
-NOTE: also replace <YOUR_GO_MOD_NAME> with a go module project name in files : `main.go`<br>
+
+Or just with : `go mod tidy`
+
+## Create .env file, use .env.example file as a reference.
+
+## Replace <YOUR_GO_MOD_NAME> with a go module project name in files : `main.go`<br>
 
 
 ## Run command
