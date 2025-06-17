@@ -33,11 +33,45 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 			}
 
 			var builder strings.Builder
+			builder.WriteString("{")
+
+			// [isIteratedFirstItem] is used to check if it's the first item in the form data
+			// to avoid adding a comma before the first item.
+			// This is used to format the JSON output correctly
+			// It is set to false initially, and set to true after the first item is added.
+			var isIteratedFirstItem bool
+
+			// Convert form values to JSON format
+			builder.WriteString("\"form_data\": {")
+
 			for key, value := range form.Value {
+				if isIteratedFirstItem {
+					builder.WriteString(", ")
+				}
+				isIteratedFirstItem = true
+
 				if len(value) > 0 && value[0] != "" {
-					builder.WriteString(key + "=" + value[0] + "&")
+					builder.WriteString("\"" + key + "\": \"" + value[0] + "\"")
 				}
 			}
+
+			for key, files := range form.File {
+				for _, file := range files {
+					if isIteratedFirstItem {
+						builder.WriteString(", ")
+					}
+					isIteratedFirstItem = true
+
+					builder.WriteString("\"" + key + "\": \"" + file.Filename + "\"")
+				}
+			}
+
+			// Close the form values JSON format
+			builder.WriteString("}")
+
+			// Close the main JSON object
+			builder.WriteString("}")
+
 			return output.WriteString(builder.String())
 		}
 
@@ -59,7 +93,7 @@ func SetLoggerMiddlewareInJSONFormat(app *fiber.App) {
 	case "prod":
 		myLogger = logger.Config{
 			Output:     os.Stdout,
-			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": "${customReqBody}", "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
+			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": ${customReqBody}, "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
 			TimeFormat: "2006/01/02 - 15:04:05",
 			// TimeZone:   "Asia/Bangkok",
 		}
@@ -67,7 +101,7 @@ func SetLoggerMiddlewareInJSONFormat(app *fiber.App) {
 		myLogger = logger.Config{
 			CustomTags: myCustomLoggerTags,
 			Output:     os.Stdout,
-			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": "${customReqBody}", "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
+			Format:     `{"time": "${time}", "status": "${status}", "method": "${method}", "latency": "${latency}", "ip": "${ip}", "path": "${path}", "query_param": "${queryParams}", "user": "${locals:user}", "request_id": "${locals:requestid}", "request_body": ${customReqBody}, "request_headers": "-", "response_body": "-", "error": "${error}"}` + "\n",
 			TimeFormat: "2006/01/02 - 15:04:05",
 			// TimeZone:   "Asia/Bangkok",
 		}
