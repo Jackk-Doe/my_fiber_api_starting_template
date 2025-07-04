@@ -20,10 +20,15 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 
 	/// Custom request body logger tag
 	"customReqBody": func(output logger.Buffer, c *fiber.Ctx, data *logger.Data, extraParam string) (int, error) {
-		// If request body is empty, return empty string
+		// If request body is empty, return empty bracket
 		if c.Request().Body() == nil {
-			return output.WriteString("")
+			return output.WriteString("{}")
 		}
+
+		var builder strings.Builder
+
+		// Open the main JSON object
+		builder.WriteString("{")
 
 		// If request body is in form-data, exclude file, extract only key-value pair datas
 		if contentType := strings.Split(c.Get("Content-Type"), ";")[0]; contentType == "multipart/form-data" {
@@ -31,9 +36,6 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 			if err != nil {
 				return output.WriteString("ERROR_GETTING_FORM_DATA")
 			}
-
-			var builder strings.Builder
-			builder.WriteString("{")
 
 			// [isIteratedFirstItem] is used to check if it's the first item in the form data
 			// to avoid adding a comma before the first item.
@@ -69,11 +71,11 @@ var myCustomLoggerTags = map[string]logger.LogFunc{
 			// Close the form values JSON format
 			builder.WriteString("}")
 
-			// Close the main JSON object
-			builder.WriteString("}")
-
 			return output.WriteString(builder.String())
 		}
+
+		// Close the main JSON object
+		builder.WriteString("}")
 
 		// If request body is in JSON
 		msg := strings.ReplaceAll(string(c.Request().Body()), "\n", "")
