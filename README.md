@@ -19,6 +19,7 @@ Install packages :
 go get github.com/gofiber/fiber/v2
 go get github.com/joho/godotenv
 go get github.com/go-playground/validator/v10
+go get github.com/stretchr/testify/assert
 ...
 ```
 
@@ -35,6 +36,11 @@ Or just with : `go mod tidy`
 Or debug via CompileDaemon with: <br>
 `$ CompileDaemon -build="go build -o ./build/api cmd/api/main.go" -command="./build/api"`
 
+
+## Run Basic Tests command
+`$ go test ./... -v`
+
+Test codes are stored with /tests folder <br>
 
 ## Test routes 
 ```
