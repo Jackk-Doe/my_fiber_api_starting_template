@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 
-	testcontrollers "<YOUR_GO_MOD_NAME>/api/controllers"
+	testcontrollers "github.com/Jackk-Doe/my_fiber_api_starting_template/api/controllers"
 )
 
 func TestRouter(app fiber.Router) {

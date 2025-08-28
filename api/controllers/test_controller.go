@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gofiber/fiber/v2"
 
-	"<YOUR_GO_MOD_NAME>/api/presenters"
+	"github.com/Jackk-Doe/my_fiber_api_starting_template/api/presenters"
 )
 
 func TestController(c *fiber.Ctx) error {

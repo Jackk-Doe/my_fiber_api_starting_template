@@ -10,12 +10,12 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	testRouter "<YOUR_GO_MOD_NAME>/api/routes"
-	"<YOUR_GO_MOD_NAME>/api/validators"
-	"<YOUR_GO_MOD_NAME>/config/cors"
-	"<YOUR_GO_MOD_NAME>/config/dotenv"
-	"<YOUR_GO_MOD_NAME>/config/logger"
-	requestid "<YOUR_GO_MOD_NAME>/config/requestId"
+	testRouter "github.com/Jackk-Doe/my_fiber_api_starting_template/api/routes"
+	"github.com/Jackk-Doe/my_fiber_api_starting_template/api/validators"
+	"github.com/Jackk-Doe/my_fiber_api_starting_template/config/cors"
+	"github.com/Jackk-Doe/my_fiber_api_starting_template/config/dotenv"
+	"github.com/Jackk-Doe/my_fiber_api_starting_template/config/logger"
+	requestid "github.com/Jackk-Doe/my_fiber_api_starting_template/config/requestId"
 )
 
 func init() {

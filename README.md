@@ -11,7 +11,7 @@ A template for Go Fiber API project by Jackk-Doe.<br>
 
 ## Initialise go mod and install necessary go packages (fiber & dotenv) 
 ```
-go mod init <YOUR_GO_MOD_NAME>
+go mod init <YOUR_PROJECT_NAME>
 ```
 
 Install packages :
@@ -25,7 +25,7 @@ Or just with : `go mod tidy`
 
 ## Create .env file, use .env.example file as a reference.
 
-## Replace <YOUR_GO_MOD_NAME> with a go module project name in files : `main.go`<br>
+## Replace ``<github.com/Jackk-Doe/my_fiber_api_starting_template>`` in all files, with your go project name<br>
 
 
 ## Run command
