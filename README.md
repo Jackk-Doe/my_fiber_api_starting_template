@@ -19,6 +19,7 @@ Install packages :
 go get github.com/gofiber/fiber/v2
 go get github.com/joho/godotenv
 go get github.com/go-playground/validator/v10
+...
 ```
 
 Or just with : `go mod tidy`
